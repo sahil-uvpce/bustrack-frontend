@@ -1,0 +1,85 @@
+<!-- <div class="content" id="insert"> -->
+    <div class="container-fluid">
+          <form id="orginsert">
+              <div class="row">
+                  <div>
+                      <div class="form-group">
+                          <label>Organization Name</label>
+                          <input type="text" class="form-control" placeholder="Organization Name" name="orgname" required="">
+                      </div>
+                  </div>
+                  <div>
+                      <div class="form-group">
+                          <label>Address</label>
+                          <textarea rows="5" class="form-control" placeholder="Address of your Organization" name="orgaddress" required=""></textarea>
+                      </div>
+                  </div>
+                  <div>
+                      <div class="form-group">
+                          <label for="exampleInputEmail1">Email address</label>
+                          <input type="email" class="form-control" placeholder="Email" name="orgemail" required="">
+                      </div>
+                  </div>
+                  <div>
+                      <div class="form-group">
+                          <label>Contact Number</label>
+                          <textarea rows="3" class="form-control" placeholder="Organization Contact Number format like 'office'=>'079-27473392' 'mobile'=>'9601751101'" name="orgcontact" required=""></textarea>
+                      </div>
+                  </div>
+                  <div>
+                      <div class="form-group">
+                          <label for="password">Password</label>
+                          <input type="password" class="form-control" placeholder="Password" name="orgpwd" required="">
+                      </div>
+                  </div>
+              </div>
+
+              <button type="submit" class="btn btn-info btn-fill pull-left" onclick="insorg()">SEND</button>
+              <button type="reset" class="btn btn-info btn-fill pull-right">RESET</button>
+              <div class="clearfix"></div>
+          </form>
+    </div>
+  <!-- </div> -->
+  <!-- onclick="insorg()" -->
+<script type="text/javascript">
+function insorg(){
+    orginsdata={
+      'name':$("#orginsert").find('input[name="orgname"]').val(),
+      'email':$("#orginsert").find('input[name="orgemail"]').val(),
+      'address':$("#orginsert").find('input[name="orgaddress"]').val(),
+      'contact':$("#orginsert").find('input[name="orgcontact"]').val(),
+      'password':$("#orginsert").find('input[name="orgpwd"]').val(),
+};
+  $.ajax({
+     type: "POST",
+     url: "http://localhost:1323/organization/add",
+     data: orginsdata, // serializes the form's elements.
+     success: function(data)
+     {
+         alert(data); // show response from the php script.
+     }
+   });
+}
+
+// $(document).ready(function(){
+//     $("button").click(function(){
+//       orginsdata={
+//         'name':$("#orginsert").find('input[name="orgname"]').val(),
+//         'email':$("#orginsert").find('input[name="orgemail"]').val(),
+//         'address':$("#orginsert").find('textarea[name="orgaddress"]').val(),
+//         'contact':$("#orginsert").find('textarea[name="orgcontact"]').val(),
+//         'password':$("#orginsert").find('input[name="orgpwd"]').val(),
+//   };
+//       $.ajax({
+//          type: "POST",
+//          url: "http://localhost:1323/organization/add",
+//          data: orginsdata, // serializes the form's elements.
+//          success: function(data)
+//          {
+//              alert(data); // show response from the php script.
+//          }
+//        });
+//     });
+// });
+
+</script>

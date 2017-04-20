@@ -1,0 +1,90 @@
+[
+  {
+    "orgid": 1,
+    "email": "org@local.com",
+    "name": "test organization",
+    "address": "asdafdf",
+    "password": "12345678",
+    "contact": "\"mobile\"=>\"789\", \"office\"=>\"123\""
+  },
+  {
+    "orgid": 6,
+    "email": "uvpce@gmail.com",
+    "name": "uvpce",
+    "address": "KHERVA-MEHSANA",
+    "password": "uvpce123",
+    "contact": "\"office\"=>\"9601751101\""
+  },
+  {
+    "orgid": 7,
+    "email": "uvpce23@gmail.com",
+    "name": "uvpce",
+    "address": "KHERVA-MEHSANA",
+    "password": "uvpce123",
+    "contact": "\"office\"=>\"960178952\""
+  },
+  {
+    "orgid": 8,
+    "email": "uvpce24@gmail.com",
+    "name": "uvpce",
+    "address": "KHERVA-MEHSANA",
+    "password": "uvpce123",
+    "contact": "\"office\"=>\"960178973\""
+  },
+  {
+    "orgid": 9,
+    "email": "uvpce251@gmail.com",
+    "name": "uvpce",
+    "address": "KHERVA-MEHSANA",
+    "password": "uvpce123",
+    "contact": "\"office\"=>\"860458963\""
+  },
+  {
+    "orgid": 10,
+    "email": "uvpce2587@gmail.com",
+    "name": "uvpce",
+    "address": "KHERVA-MEHSANA",
+    "password": "uvpce123",
+    "contact": "\"office\"=>\"7856458963\""
+  },
+  {
+    "orgid": 11,
+    "email": "skpatel@gmail.com",
+    "name": "skpatel",
+    "address": "Ahmedabad",
+    "password": "skpatel123",
+    "contact": "\"office\"=>\"155648569\""
+  },
+  {
+    "orgid": 2,
+    "email": "ldce@gmail.com",
+    "name": "LDCE",
+    "address": "Ahmedabad",
+    "password": "LdCE123",
+    "contact": "\"office\"=>\"25648569\""
+  },
+  {
+    "orgid": 14,
+    "email": "bussupport@ldrp.ac.in",
+    "name": "LDRP",
+    "address": "",
+    "password": "ldrp",
+    "contact": ""
+  },
+  {
+    "orgid": 17,
+    "email": "bussupport1@ldrp.ac.in",
+    "name": "LDRP1",
+    "address": "Gandhinagar",
+    "password": "ldrp1",
+    "contact": "\"office\"=>\"21265478\""
+  },
+  {
+    "orgid": 19,
+    "email": "ies@gmail.com",
+    "name": "Ignite Education Service",
+    "address": "vijay cross road, ahmedabad",
+    "password": "ies@sahil",
+    "contact": "\"mobile\"=>\"8866512770\""
+  }
+]

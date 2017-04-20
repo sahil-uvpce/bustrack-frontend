@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title></title>
+  <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="assets/js/jquery-1.10.2.js" type="text/javascript"/>
+  <script src="assets/js/bootstrap.min.js" type="text/javascript" />
+</head>
+<body>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6">
+          <h2>Organization Training</h2>
+        </div>
+      </div>
+    </div>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <table id="productTable" class="table table-bordered table-condensed table-striped">
+        <thead>
+          <tr>
+              <th>Org ID</th>
+              <th>Email</th>
+              <th>Name</th>
+              <th>Address</th>
+              <th>Password</th>
+              <th>Contact</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <button type="button" id="addButton"  class="btn btn-primary"  onclick="addClick();">Add Organization</button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          Organization Information
+        </div>
+        <div class="panel-body">
+              <div class="form-group">
+                <label>Organization Name</label>
+                <input type="text" class="form-control" placeholder="Organization Name" name="orgname" required="">
+              </div>
+              <div class="form-group">
+                <label for="introdate">Introduction Date</label>
+                <input type="date" id="introdate"  class="form-control" />
+              </div>
+              <div class="form-group">
+                <label for="url">URL</label>
+                <input type="url" id="url" class="form-control" />
+              </div>
+        </div>
+        <div class="panel-footer">
+            <div class="row">
+              <div class="col-xs-12">
+                <button type="button" id="updateButton" class="btn btn-primary" onclick="updateClick();">Add</button>
+              </div>
+          </div>
+        </div>
+     </div>
+    </div>
+  </div>
+
+
+
+</body>
+</html>
