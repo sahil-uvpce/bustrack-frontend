@@ -1,0 +1,31 @@
+///// function create
+
+CREATE FUNCTION bus_trip_insert()
+RETURNS trigger AS '
+BEGIN
+  UPDATE bus SET current_trip_id=NEW.trip_id WHERE bus_id=NEW.bus_id;
+  RETURN NEW;
+END' LANGUAGE 'plpgsql'
+
+// tridder create
+
+
+CREATE TRIGGER inject_bus_trip
+AFTER INSERT OR UPDATE ON trip
+FOR EACH ROW
+EXECUTE PROCEDURE bus_trip_insert()
+
+
+/// drop function
+
+DROP FUNCTION function_name();
+
+//// drop trigger
+
+DROP TRIGGER trigger_name ON table;
+
+
+
+
+
+
