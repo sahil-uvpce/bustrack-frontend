@@ -1,41 +1,41 @@
 <!-- <div class="content" id="insert"> -->
     <div class="container-fluid">
-            <form id="orgupdate">
+            <form id="venupdate">
               <div class="row">
                   <div>
                       <div class="form-group">
-                          <label>Organization ID</label>
-                          <input type="text" class="form-control" placeholder="Organization ID" name="orgid" required="" onkeyup="callupdate()">
+                          <label>Vendor ID</label>
+                          <input type="text" class="form-control" placeholder="Vendor ID" name="venid" required="" onkeyup="callupdate()">
                       </div>
                   </div>
                   <div>
                       <div class="form-group">
                           <label>Organization Name</label>
-                          <input type="text" class="form-control" placeholder="Organization Name" name="orgname" id="orgname" required="">
+                          <input type="text" class="form-control" placeholder="Vendor Name" name="name" id="name" required="">
                       </div>
                   </div>
                   <div>
                       <div class="form-group">
                           <label>Address</label>
-                          <textarea rows="5" class="form-control" placeholder="Address of your Organization" name="orgaddress" id="orgaddress" required=""></textarea>
+                          <textarea rows="5" class="form-control" placeholder="Address of your Vendor" name="address" id="address" required=""></textarea>
                       </div>
                   </div>
                   <div>
                       <div class="form-group">
                           <label for="exampleInputEmail1">Email address</label>
-                          <input type="email" class="form-control" placeholder="Email" name="orgemail" id="orgemail" required="">
+                          <input type="email" class="form-control" placeholder="Email" name="email" id="email" required="">
                       </div>
                   </div>
                   <div>
                       <div class="form-group">
                           <label>Contact Number</label>
-                          <textarea rows="2" class="form-control" placeholder="Organization Contact Number format like 'office'=>'079-27473392' 'mobile'=>'9601751101'" name="orgcontact" id="orgcontact" required=""></textarea>
+                          <textarea rows="2" class="form-control" placeholder="Vendor Contact Number format like office => 079-27473392, mobile => 9601751101 " name="contact" id="contact" required=""></textarea>
                       </div>
                   </div>
                   <div>
                       <div class="form-group">
-                          <label for="password">Password</label>
-                          <input type="password" class="form-control" placeholder="Password" name="orgpwd" id="orgpwd" required="">
+                          <label>Organization ID</label>
+                          <input type="number" class="form-control" placeholder="Organization ID" name="orgid" id="orgid" required="">
                       </div>
                   </div>
               </div>
@@ -45,32 +45,32 @@
               <div class="clearfix"></div>
             </form>
     </div>
-  <!-- </div> -->
+
 <script>
 
   function callupdate(){
-    var id = $("#orgupdate").find('input[name="orgid"]').val();
+    var id = $("#venupdate").find('input[name="venid"]').val();
     console.log("id:",id);
      if (id) {
        $.ajax({
           type: "GET",
           dataType: 'json',
-          url: "http://localhost:1323/organization/get/"+id,
+          url: "http://localhost:1323/vendor/get/"+id,
           success: function(data)
           {
               //window.alert(data)
               console.log(data);
               obj = data[0];
-              document.getElementById("orgname").value = obj.name;
-              document.getElementById("orgaddress").value = obj.address;
-              document.getElementById("orgemail").value = obj.email;
-              document.getElementById("orgcontact").value = obj.contact;
-              document.getElementById("orgpwd").value = obj.password;
+              document.getElementById("name").value = obj.name;
+              document.getElementById("address").value = obj.address;
+              document.getElementById("email").value = obj.email;
+              document.getElementById("contact").value = obj.contact;
+              document.getElementById("orgid").value = obj.orgid;
           }
         });
      }
      else {
-          $("#orgupdate").trigger('reset');
+          $("#venupdate").trigger('reset');
         //  document.getElementById("orgname").reset();
         //  document.getElementById("orgaddress").reset();
         //  document.getElementById("orgemail").reset();
@@ -82,18 +82,18 @@
 
 function orgupd() {
   orgupdatedata={
-    orgid: parseInt($("#orgupdate").find('input[name="orgid"]').val()),
-    name:$("#orgupdate").find('input[name="orgname"]').val(),
-    email:$("#orgupdate").find('input[name="orgemail"]').val(),
-    address:$("#orgupdate").find('textarea[name="orgaddress"]').val(),
-    contact:$("#orgupdate").find('textarea[name="orgcontact"]').val(),
-    password:$("#orgupdate").find('input[name="orgpwd"]').val(),
+    venid: parseInt($("#venupdate").find('input[name="venid"]').val()),
+    name:$("#venupdate").find('input[name="name"]').val(),
+    email:$("#venupdate").find('input[name="email"]').val(),
+    address:$("#venupdate").find('textarea[name="address"]').val(),
+    contact:$("#venupdate").find('textarea[name="contact"]').val(),
+    orgid:parseInt($("#venupdate").find('input[name="orgid"]').val()),
   };
   datatosend = JSON.stringify(orgupdatedata)
   console.log(datatosend);
   $.ajax({
      type: 'PUT',
-     url: "http://localhost:1323/organization/update",
+     url: "http://localhost:1323/vendor/update",
      data: datatosend,
      contentType: "application/json",
      success: function(data)

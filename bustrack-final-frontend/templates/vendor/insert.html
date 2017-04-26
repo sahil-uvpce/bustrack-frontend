@@ -1,36 +1,36 @@
 <!-- <div class="content" id="insert"> -->
 <!-- <div class="content" id="insert"> -->
     <div class="container-fluid">
-            <form id="orginsert">
+            <form id="veninsert">
               <div class="row">
                   <div>
                       <div class="form-group">
-                          <label>Organization Name</label>
-                          <input type="text" class="form-control" placeholder="Organization Name(Only Alphabet)" name="orgname" id="orgname" required="">
+                          <label>Vendor Name</label>
+                          <input type="text" class="form-control" placeholder="Vendor Name(Only Alphabet)" name="name" id="name" required="">
                       </div>
                   </div>
                   <div>
                       <div class="form-group">
                           <label>Address</label>
-                          <textarea rows="5" class="form-control" placeholder="Address of your Organization" name="orgaddress" id="orgaddress" required=""></textarea>
+                          <textarea rows="5" class="form-control" placeholder="Address of your Vendor" name="address" id="address" required=""></textarea>
                       </div>
                   </div>
                   <div>
                       <div class="form-group">
                           <label for="exampleInputEmail1">Email address</label>
-                          <input type="email" class="form-control" placeholder="Email" name="orgemail" id="orgemail" required="">
+                          <input type="email" class="form-control" placeholder="Email" name="email" id="email" required="">
                       </div>
                   </div>
                   <div>
                       <div class="form-group">
                           <label>Contact Number</label>
-                          <textarea rows="2" class="form-control" placeholder="Organization Contact Number format like 'office'=>'079-27473392' 'mobile'=>'9601751101'" name="orgcontact" id="orgcontact" required=""></textarea>
+                          <textarea rows="2" class="form-control" placeholder="Vendor Contact Number format like 'office'=>'079-27473392' 'mobile'=>'9601751101'" name="contact" id="contact" required=""></textarea>
                       </div>
                   </div>
                   <div>
                       <div class="form-group">
-                          <label for="password">Password</label>
-                          <input type="password" class="form-control" placeholder="Password" name="orgpwd" id="orgpwd" required="">
+                          <label>Organization ID</label>
+                          <input type="number" class="form-control" placeholder="Organization ID" name="orgid" id="orgid" required="">
                       </div>
                   </div>
               </div>
@@ -48,20 +48,20 @@ function insorg(){
  check=checkform();
 console.log("CheckForm:",check);
   if (check) {
-  orginsdata={
-    name:$("#orginsert").find('input[name="orgname"]').val(),
-    email:$("#orginsert").find('input[name="orgemail"]').val(),
-    address:$("#orginsert").find('textarea[name="orgaddress"]').val(),
-    contact:$("#orginsert").find('textarea[name="orgcontact"]').val(),
-    password:$("#orginsert").find('input[name="orgpwd"]').val(),
+  veninsdata={
+    name:$("#veninsert").find('input[name="name"]').val(),
+    email:$("#veninsert").find('input[name="email"]').val(),
+    address:$("#veninsert").find('textarea[name="address"]').val(),
+    contact:$("#veninsert").find('textarea[name="contact"]').val(),
+    orgid:parseInt($("#veninsert").find('input[name="orgid"]').val()),
   };
 
-  datatosend = JSON.stringify(orginsdata)
+  datatosend = JSON.stringify(veninsdata)
   console.log("datatosend: ",datatosend);
 
   $.ajax({
      type: "POST",
-     url: "http://localhost:1323/organization/add",
+     url: "http://localhost:1323/vendor/add",
      data: datatosend,
      contentType: "application/json", // serializes the form's elements.
      success: function(data)
@@ -80,11 +80,11 @@ console.log("CheckForm:",check);
 <script>
 
 function checkform(){
-     name=$("#orginsert").find('input[name="orgname"]').val();
-     email=$("#orginsert").find('input[name="orgemail"]').val();
-     address=$("#orginsert").find('textarea[name="orgaddress"]').val();
-     contact=$("#orginsert").find('textarea[name="orgcontact"]').val();
-     password=$("#orginsert").find('input[name="orgpwd"]').val();
+     name=$("#veninsert").find('input[name="name"]').val();
+     email=$("#veninsert").find('input[name="email"]').val();
+     address=$("#veninsert").find('textarea[name="address"]').val();
+     contact=$("#veninsert").find('textarea[name="contact"]').val();
+     orgid=$("#veninsert").find('input[name="orgid"]').val();
      hasError = false;
 
     name_regex = /^[a-zA-Z ]+$/;
@@ -93,24 +93,24 @@ function checkform(){
     // Validating Name Field.
     if (name.length == 0) {
       // $("#orgname").after('<span class="error">Please enter your Organization Name.</span>');
-      alert("Please enter your Organization Name.");
+      alert("Please enter your Vendor Name.");
       return hasError;
     }
     if (!name.match(name_regex)) {
       // $("#orgname").after('<span class="error">Please enter your Organization Name.</span>');
-      alert("Please enter Valid Organization Name.");
+      alert("Please enter Valid Vendor Name.");
       return hasError;
     }
     // Validating address Field.
     if (address.length == 0) {
       // $("#orgaddress").after('<span class="error">Please enter your Organization Address.</span>');
-      alert("Please enter your Organization Address.");
+      alert("Please enter your Vendor Address.");
       return hasError;
     }
     // Validating Email Field.
     if(email == '') {
         // $("#orgemail").after('<span class="error">Please enter your email address.</span>');
-        alert("Please enter your email address.");
+        alert("Please enter Vendor email address.");
         return hasError;
     }
     if(!email_regex.test(email)) {
@@ -121,13 +121,13 @@ function checkform(){
     // Validating contact Field.
     if (contact.length == 0) {
       // $("#orgcontact").after('<span class="error">Please enter your Contact.</span>');
-      alert("Please enter your Contact Number.");
+      alert("Please enter your Vendor Contact Number.");
       return hasError;
     }
     //  Validating Username Field.
-    if (!(password.length >= 6 && password.length <= 12) || password.length == 0) {
+    if (orgid.length == 0) {
       // $("#orgpwd").after('<span class="error">Please enter password between 6 and 12 characters</span>');
-      alert("Please enter password between 6 and 12 characters");
+      alert("Please enter the organization id.");
       return hasError;
     }
     return !hasError;

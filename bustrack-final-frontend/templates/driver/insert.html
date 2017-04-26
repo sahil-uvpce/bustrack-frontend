@@ -1,36 +1,42 @@
 <!-- <div class="content" id="insert"> -->
 <!-- <div class="content" id="insert"> -->
     <div class="container-fluid">
-            <form id="orginsert">
+            <form id="driinsert">
               <div class="row">
                   <div>
                       <div class="form-group">
-                          <label>Organization Name</label>
-                          <input type="text" class="form-control" placeholder="Organization Name(Only Alphabet)" name="orgname" id="orgname" required="">
+                          <label>Driver Name</label>
+                          <input type="text" class="form-control" placeholder="Driver Name(Only Alphabet)" name="name" id="name" required="">
                       </div>
                   </div>
                   <div>
                       <div class="form-group">
                           <label>Address</label>
-                          <textarea rows="5" class="form-control" placeholder="Address of your Organization" name="orgaddress" id="orgaddress" required=""></textarea>
+                          <textarea rows="5" class="form-control" placeholder="Address of your Driver" name="address" id="address" required=""></textarea>
                       </div>
                   </div>
                   <div>
                       <div class="form-group">
                           <label for="exampleInputEmail1">Email address</label>
-                          <input type="email" class="form-control" placeholder="Email" name="orgemail" id="orgemail" required="">
-                      </div>
-                  </div>
-                  <div>
-                      <div class="form-group">
-                          <label>Contact Number</label>
-                          <textarea rows="2" class="form-control" placeholder="Organization Contact Number format like 'office'=>'079-27473392' 'mobile'=>'9601751101'" name="orgcontact" id="orgcontact" required=""></textarea>
+                          <input type="email" class="form-control" placeholder="Email" name="email" id="email" required="">
                       </div>
                   </div>
                   <div>
                       <div class="form-group">
                           <label for="password">Password</label>
-                          <input type="password" class="form-control" placeholder="Password" name="orgpwd" id="orgpwd" required="">
+                          <input type="password" class="form-control" placeholder="Password" name="pwd" id="pwd" required="">
+                      </div>
+                  </div>
+                  <div>
+                      <div class="form-group">
+                          <label>Contact Number</label>
+                          <textarea rows="2" class="form-control" placeholder="Vendor Contact Number format like 'office'=>'079-27473392' 'mobile'=>'9601751101'" name="contact" id="contact" required=""></textarea>
+                      </div>
+                  </div>
+                  <div>
+                      <div class="form-group">
+                          <label>Vendor ID</label>
+                          <input type="number" class="form-control" placeholder="Vendor ID" name="venid" id="venid" required="">
                       </div>
                   </div>
               </div>
@@ -48,20 +54,21 @@ function insorg(){
  check=checkform();
 console.log("CheckForm:",check);
   if (check) {
-  orginsdata={
-    name:$("#orginsert").find('input[name="orgname"]').val(),
-    email:$("#orginsert").find('input[name="orgemail"]').val(),
-    address:$("#orginsert").find('textarea[name="orgaddress"]').val(),
-    contact:$("#orginsert").find('textarea[name="orgcontact"]').val(),
-    password:$("#orginsert").find('input[name="orgpwd"]').val(),
+  veninsdata={
+    name:$("#driinsert").find('input[name="name"]').val(),
+    email:$("#driinsert").find('input[name="email"]').val(),
+    password:$("#driinsert").find('input[name="pwd"]').val(),
+    address:$("#driinsert").find('textarea[name="address"]').val(),
+    contact:$("#driinsert").find('textarea[name="contact"]').val(),
+    venid:parseInt($("#driinsert").find('input[name="venid"]').val()),
   };
 
-  datatosend = JSON.stringify(orginsdata)
+  datatosend = JSON.stringify(veninsdata)
   console.log("datatosend: ",datatosend);
 
   $.ajax({
      type: "POST",
-     url: "http://localhost:1323/organization/add",
+     url: "http://localhost:1323/driver/add",
      data: datatosend,
      contentType: "application/json", // serializes the form's elements.
      success: function(data)
@@ -80,11 +87,12 @@ console.log("CheckForm:",check);
 <script>
 
 function checkform(){
-     name=$("#orginsert").find('input[name="orgname"]').val();
-     email=$("#orginsert").find('input[name="orgemail"]').val();
-     address=$("#orginsert").find('textarea[name="orgaddress"]').val();
-     contact=$("#orginsert").find('textarea[name="orgcontact"]').val();
-     password=$("#orginsert").find('input[name="orgpwd"]').val();
+     name=$("#driinsert").find('input[name="name"]').val();
+     email=$("#driinsert").find('input[name="email"]').val();
+     pwd=$("#driinsert").find('input[name="pwd"]').val();
+     address=$("#driinsert").find('textarea[name="address"]').val();
+     contact=$("#driinsert").find('textarea[name="contact"]').val();
+     venid=$("#driinsert").find('input[name="venid"]').val();
      hasError = false;
 
     name_regex = /^[a-zA-Z ]+$/;
@@ -93,24 +101,24 @@ function checkform(){
     // Validating Name Field.
     if (name.length == 0) {
       // $("#orgname").after('<span class="error">Please enter your Organization Name.</span>');
-      alert("Please enter your Organization Name.");
+      alert("Please enter your Driver Name.");
       return hasError;
     }
     if (!name.match(name_regex)) {
       // $("#orgname").after('<span class="error">Please enter your Organization Name.</span>');
-      alert("Please enter Valid Organization Name.");
+      alert("Please enter Valid Driver Name.");
       return hasError;
     }
     // Validating address Field.
     if (address.length == 0) {
       // $("#orgaddress").after('<span class="error">Please enter your Organization Address.</span>');
-      alert("Please enter your Organization Address.");
+      alert("Please enter your Driver Address.");
       return hasError;
     }
     // Validating Email Field.
     if(email == '') {
         // $("#orgemail").after('<span class="error">Please enter your email address.</span>');
-        alert("Please enter your email address.");
+        alert("Please enter Driver email address.");
         return hasError;
     }
     if(!email_regex.test(email)) {
@@ -118,16 +126,21 @@ function checkform(){
         alert("Enter a valid email address.");
         return hasError;
     }
+    if (!(pwd.length >= 6 && pwd.length <= 12) || pwd.length == 0) {
+      // $("#orgpwd").after('<span class="error">Please enter password between 6 and 12 characters</span>');
+      alert("Please enter password between 6 and 12 characters");
+      return hasError;
+    }
     // Validating contact Field.
     if (contact.length == 0) {
       // $("#orgcontact").after('<span class="error">Please enter your Contact.</span>');
-      alert("Please enter your Contact Number.");
+      alert("Please enter your Driver Contact Number.");
       return hasError;
     }
     //  Validating Username Field.
-    if (!(password.length >= 6 && password.length <= 12) || password.length == 0) {
+    if (venid.length == 0) {
       // $("#orgpwd").after('<span class="error">Please enter password between 6 and 12 characters</span>');
-      alert("Please enter password between 6 and 12 characters");
+      alert("Please enter the vendor id.");
       return hasError;
     }
     return !hasError;

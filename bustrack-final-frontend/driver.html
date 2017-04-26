@@ -22,7 +22,7 @@
 
 		<!-- load datatables js library -->
 			<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
-			
+
     <!--  CSS for Demo Purpose, don't include it in your project     -->
     <link href="assets/css/demo.css" rel="stylesheet" />
 
@@ -120,15 +120,15 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Vendor</a>
+                    <a class="navbar-brand" href="#">Driver</a>
                 </div>
                 <div class="collapse navbar-collapse">
 										<ul class="nav navbar-nav navbar-left">
 												<li>
-													<li><a href="#insert" id="insert">Insert Vendor</a></li>
-													<li><a href="#get" id="get">Get The Vendor</a></li>
-													<li><a href="#update" id="update">Update Vendor</a></li>
-													<li><a href="#delete" id="delete">Delete Vendor</a></li>
+													<li><a href="#insert" id="insert">Insert Driver</a></li>
+													<li><a href="#get" id="get">Get The Driver</a></li>
+													<li><a href="#update" id="update">Update Driver</a></li>
+													<li><a href="#delete" id="delete">Delete Driver</a></li>
 												</li>
 										</ul>
 
@@ -159,16 +159,16 @@
 	<script type="text/javascript">
 						$(document).ready(function(){
 								 $("#insert").click(function(){
-										$( "#content" ).load( "templates/vendor/insert.html");
+										$( "#content" ).load( "templates/driver/insert.html");
 									});
 									$("#get").click(function(){
-										$( "#content" ).load( "templates/vendor/get.html");
+										$( "#content" ).load( "templates/driver/get.html");
 									});
 								 $("#update").click(function(){
-									 $( "#content" ).load( "templates/vendor/update.html");
+									 $( "#content" ).load( "templates/driver/update.html");
 								 });
 								 $("#delete").click(function(){
-									 $( "#content" ).load( "templates/vendor/delete.html");
+									 $( "#content" ).load( "templates/driver/delete.html");
 								 });
 						});
 	</script>
