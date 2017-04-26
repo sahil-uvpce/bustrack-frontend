@@ -1,0 +1,112 @@
+<!-- <div class="content" id="insert"> -->
+<!-- <div class="content" id="insert"> -->
+    <div class="container-fluid">
+            <form id="businsert">
+              <div class="row">
+                  <div>
+                      <div class="form-group">
+                          <label>Bus Number(Vehicle Number)</label>
+                          <input type="text" class="form-control" placeholder="Bus Number(Vehicle Number)" name="busno" required="">
+                      </div>
+                  </div>
+                  <div>
+                      <div class="form-group">
+                          <label>Vendor ID</label>
+                          <input type="number" class="form-control" placeholder="Vendor ID" name="venid" id="venid" required="">
+                      </div>
+                  </div>
+              </div>
+
+              <button id="btninsert" type="button" class="btn btn-info btn-fill pull-left" onclick="insorg()">SEND</button>
+              <button type="reset" class="btn btn-info btn-fill pull-right">RESET</button>
+          </form>
+              <div class="clearfix"></div>
+    </div>
+  <!-- </div> -->
+  <!-- onclick="insorg()" -->
+<script type="text/javascript">
+
+function insorg(){
+ check=checkform();
+console.log("CheckForm:",check);
+  if (check) {
+  busnsdata={
+    vehicle_no:$("#businsert").find('input[name="busno"]').val(),
+    venid:parseInt($("#businsert").find('input[name="venid"]').val()),
+  };
+
+  datatosend = JSON.stringify(busnsdata)
+  console.log("datatosend: ",datatosend);
+
+  $.ajax({
+     type: "POST",
+     url: "http://localhost:1323/bus/add",
+     data: datatosend,
+     contentType: "application/json", // serializes the form's elements.
+     success: function(data)
+     {
+         window.alert(data); // show response from the php script.
+     },
+     error: function (xhr, textStatus, errorThrown) {
+                    console.log('Error in Operation');
+                    console.log("textStatus:",textStatus);
+    }
+   });
+ }
+
+}
+</script>
+<script>
+
+function checkform(){
+     vehicle_no=$("#businsert").find('input[name="busno"]').val();
+     venid=$("#businsert").find('input[name="venid"]').val();
+     hasError = false;
+
+    // Validating Name Field.
+    if (vehicle_no.length == 0) {
+      // $("#orgname").after('<span class="error">Please enter your Organization Name.</span>');
+      alert("Please enter Bus Number(Vehicle Number).");
+      return hasError;
+    }
+    //  Validating Username Field.
+    if (venid.length == 0) {
+      // $("#orgpwd").after('<span class="error">Please enter password between 6 and 12 characters</span>');
+      alert("Please enter the vendor id.");
+      return hasError;
+    }
+    return !hasError;
+}
+
+// var validate_email = function(email){
+//   var pattern = /^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/;
+//   var is_email_valid = false;
+//   if(email.match(pattern) != null){
+//     is_email_valid = true;
+//   }
+//   return is_email_valid;
+// }
+//
+// $(document).on("keyup", "#orgemail", function(event){
+//   var keypressed = event.which;
+//   var input_val = $(this).val();
+//   var is_success = true;
+//   if(keypressed == 9){
+//     is_success = validate_email(input_val);
+//     if(!is_success){
+//       $(this).focus();
+//     }
+//   }
+// });
+//
+// $(document).on("focusout", "#orgemail", function(){
+//   var input_val = $(this).val();
+//   var is_success = validate_email(input_val);
+//
+//   if(!is_success){
+//     $("#orgemail").focus();
+//   }
+// });
+
+
+</script>

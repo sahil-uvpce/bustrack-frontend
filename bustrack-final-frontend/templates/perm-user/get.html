@@ -1,0 +1,130 @@
+<!-- <div class="content" id="insert"> -->
+    <div class="container-fluid">
+              <div class="row">
+                  <div class="col-md-3">
+                      <div class="form-group">
+                          <label>Get All Permitted User by Organization</label>
+                          <input type="number" class="form-control" placeholder="Organization ID" required="" name="orgid">
+                          <button  type="button" class="btn btn-info btn-fill pull-left" onclick="getid()">Get All Perm-User</button>
+                      </div>
+                  </div>
+                  <!-- <div class="clearfix"></div> -->
+                  <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Get Permitted User by Email id</label>
+                        <input type="text" class="form-control" placeholder="Email ID" required="" name="email">
+                        <button  type="button" class="btn btn-info btn-fill pull-left" onclick="getemail()">Get Perm-User</button>
+                    </div>
+                  </div>
+              </div>
+              <br>
+              <div class="clearfix"></div>
+
+              <div class="col-md-12">
+                  <!-- <div class="card"> -->
+                      <!-- <div class="header">
+                          <h4 class="title">Striped Table with Hover</h4>
+                          <p class="category">Here is a subtitle for this table</p>
+                      </div> -->
+                      <div class="content table-responsive table-full-width" id="showtabledata">
+                          <!-- <table id="example" class="table table-hover table-bordered table-condensed table-striped" >
+                              <thead>
+                                <tr>
+                                    <th>Org ID</th>
+                                    <th>Email</th>
+                                    <th>Name</th>
+                                    <th>Address</th>
+                                    <th>Password</th>
+                                    <th>Contact</th>
+                                </tr>
+                            </thead>
+                          </table> -->
+                      </div>
+                  <!-- </div> -->
+              </div>
+
+              <!-- <button type="submit" class="btn btn-info btn-fill pull-left">UPDATE</button>
+              <button type="reset" class="btn btn-info btn-fill pull-right">RESET</button> -->
+              <div class="clearfix"></div>
+    </div>
+
+
+<script type="text/javascript">
+
+    function getid(){
+      var id = $('input[name="orgid"]').val();
+      getdata(id)
+    }
+
+    function getemail(){
+      var email = $('input[name="email"]').val();
+      getbothdata(email)
+    }
+
+    function getdata(id){
+      $.ajax({
+        url: "http://localhost:1323/permuser/get/"+id,
+        type: 'GET',
+        dataType: 'json',
+        success: function (products) {
+          OrganizationListSuccess(products);
+        },
+        error: function (xhr, textStatus, errorThrown) {
+               console.log('Error in Operation');
+           }
+      });
+    }
+
+    function getbothdata(email){
+      var vals={'email':email};
+      console.log("vals2:",vals);
+      $.ajax({
+        url: "http://localhost:1323/permuser/get?"+$.param(vals),
+        type: 'GET',
+        dataType: 'json',
+        success: function (products) {
+          OrganizationListSuccess(products);
+        },
+        error: function (xhr, textStatus, errorThrown) {
+               console.log('Error in Operation');
+           }
+      });
+    }
+
+    function OrganizationListSuccess(products) {
+      resetastype();
+      $('#example').DataTable( {
+              data: products,
+              columns: [
+                  { "data": "orgid" },
+                  { "data": "email" },
+              ],
+              "bFilter": true,
+              "bJQueryUI": true,
+              "sSearch": "Search"
+          } );
+          table.columns().every( function () {
+          var that = this;
+
+          $( 'input', this.footer() ).on( 'keyup change', function () {
+              if ( that.search() !== this.value ) {
+                  that
+                      .search( this.value )
+                      .draw();
+              }
+          } );
+          } );
+    }
+
+    function resetastype(){
+        $('#showtabledata').html("<table id=\"example\" class=\"table table-bordered table-striped table-responsive\" >"+
+         "<thead>"+
+          "<tr>"+
+             "<th>Org_ID</th>"+
+             "<th>Email</th>"+
+          "</tr>"+
+       "</thead>"+
+    "</table>");
+    }
+
+</script>

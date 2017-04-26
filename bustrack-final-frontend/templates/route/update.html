@@ -1,41 +1,35 @@
 <!-- <div class="content" id="insert"> -->
     <div class="container-fluid">
-            <form id="drupdate">
+            <form id="routeupdate">
               <div class="row">
                   <div>
                       <div class="form-group">
-                          <label>Driver ID</label>
-                          <input type="text" class="form-control" placeholder="Driver ID" name="drid" required="" onkeyup="callupdate()">
+                          <label>Route ID</label>
+                          <input type="text" class="form-control" placeholder="Route ID" name="routeid" required="" onkeyup="callupdate()">
                       </div>
                   </div>
                   <div>
                       <div class="form-group">
-                          <label>Driver Name</label>
-                          <input type="text" class="form-control" placeholder="Vendor Name" name="name" id="name" required="">
+                          <label>Organization ID</label>
+                          <input type="text" class="form-control" placeholder="Organization ID" name="orgid" id="orgid" required="">
                       </div>
                   </div>
                   <div>
                       <div class="form-group">
-                          <label>Address</label>
-                          <textarea rows="5" class="form-control" placeholder="Address of your Vendor" name="address" id="address" required=""></textarea>
+                          <label>Source</label>
+                          <input type="text" class="form-control" placeholder="Source" name="source" id="source" required="">
                       </div>
                   </div>
                   <div>
                       <div class="form-group">
-                          <label for="exampleInputEmail1">Email address</label>
-                          <input type="email" class="form-control" placeholder="Email" name="email" id="email" required="">
+                          <label>Destination</label>
+                          <input type="text" class="form-control" placeholder="Destination" name="destination" id="destination" required="">
                       </div>
                   </div>
                   <div>
                       <div class="form-group">
-                          <label>Contact Number</label>
-                          <textarea rows="2" class="form-control" placeholder="Vendor Contact Number format like office => 079-27473392, mobile => 9601751101 " name="contact" id="contact" required=""></textarea>
-                      </div>
-                  </div>
-                  <div>
-                      <div class="form-group">
-                          <label>Vendor ID</label>
-                          <input type="number" class="form-control" placeholder="Vendor ID" name="vid" id="vid" required="">
+                          <label>Coords</label>
+                          <textarea rows="2" class="form-control" placeholder="coords format like 'office'=>'079-27473392' 'mobile'=>'9601751101'" name="coords" id="coords" required=""></textarea>
                       </div>
                   </div>
               </div>
@@ -45,32 +39,31 @@
               <div class="clearfix"></div>
             </form>
     </div>
-
+  <!-- </div> -->
 <script>
 
   function callupdate(){
-    var id = $("#drupdate").find('input[name="drid"]').val();
+    var id = $("#routeupdate").find('input[name="routeid"]').val();
     console.log("id:",id);
      if (id) {
        $.ajax({
           type: "GET",
           dataType: 'json',
-          url: "http://localhost:1323/driver/get/"+id,
+          url: "http://localhost:1323/route/get/"+id,
           success: function(data)
           {
               //window.alert(data)
               console.log(data);
               obj = data[0];
-              document.getElementById("name").value = obj.name;
-              document.getElementById("address").value = obj.address;
-              document.getElementById("email").value = obj.email;
-              document.getElementById("contact").value = obj.contact;
-              document.getElementById("vid").value = obj.venid;
+              document.getElementById("orgid").value = obj.orgid;
+              document.getElementById("source").value = obj.source;
+              document.getElementById("destination").value = obj.destination;
+              document.getElementById("coords").value = obj.coords;
           }
         });
      }
      else {
-          $("#drupdate").trigger('reset');
+          $("#routeupdate").trigger('reset');
         //  document.getElementById("orgname").reset();
         //  document.getElementById("orgaddress").reset();
         //  document.getElementById("orgemail").reset();
@@ -81,19 +74,18 @@
 
 
 function orgupd() {
-  orgupdatedata={
-    drid: parseInt($("#drupdate").find('input[name="drid"]').val()),
-    name:$("#drupdate").find('input[name="name"]').val(),
-    email:$("#drupdate").find('input[name="email"]').val(),
-    address:$("#drupdate").find('textarea[name="address"]').val(),
-    contact:$("#drupdate").find('textarea[name="contact"]').val(),
-    venid:parseInt($("#drupdate").find('input[name="vid"]').val()),
+  routeupdatedata={
+    routeid: parseInt($("#routeupdate").find('input[name="routeid"]').val()),
+    orgid:parseInt($("#routeupdate").find('input[name="orgid"]').val()),
+    source:$("#routeupdate").find('input[name="source"]').val(),
+    destination:$("#routeupdate").find('input[name="destination"]').val(),
+    coords:$("#routeupdate").find('textarea[name="coords"]').val(),
   };
-  datatosend = JSON.stringify(orgupdatedata)
+  datatosend = JSON.stringify(routeupdatedata)
   console.log(datatosend);
   $.ajax({
      type: 'PUT',
-     url: "http://localhost:1323/driver/update",
+     url: "http://localhost:1323/route/update",
      data: datatosend,
      contentType: "application/json",
      success: function(data)

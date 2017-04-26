@@ -52,7 +52,7 @@
             </div>
 
             <ul class="nav">
-                <li class="active">
+                <li>
                     <a href="organization.html">
 											<i class="pe-7s-culture"></i>
 											<p>organization</p>
@@ -82,7 +82,7 @@
                         <p>User</p>
                     </a>
                 </li>
-								<li>
+								<li class="active">
                     <a href="perm-user.html">
                         <i class="pe-7s-users"></i>
                         <p>Permitted User</p>
@@ -120,15 +120,15 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Vendor</a>
+                    <a class="navbar-brand" href="#">Permitted User</a>
                 </div>
                 <div class="collapse navbar-collapse">
 										<ul class="nav navbar-nav navbar-left">
 												<li>
-													<li><a href="#insert" id="insert">Insert Vendor</a></li>
-													<li><a href="#get" id="get">Get The Vendor</a></li>
-													<li><a href="#update" id="update">Update Vendor</a></li>
-													<li><a href="#delete" id="delete">Delete Vendor</a></li>
+													<li><a href="#insert" id="insert">Insert Perm-User</a></li>
+													<li><a href="#get" id="get">Get The Perm-User</a></li>
+													<li><a href="#update" id="update">Update Perm-User</a></li>
+													<li><a href="#delete" id="delete">Delete Perm-User</a></li>
 												</li>
 										</ul>
 
@@ -159,16 +159,16 @@
 	<script type="text/javascript">
 						$(document).ready(function(){
 								 $("#insert").click(function(){
-										$( "#content" ).load( "templates/vendor/insert.html");
+										$( "#content" ).load( "templates/perm-user/insert.html");
 									});
 									$("#get").click(function(){
-										$( "#content" ).load( "templates/vendor/get.html");
+										$( "#content" ).load( "templates/perm-user/get.html");
 									});
 								 $("#update").click(function(){
-									 $( "#content" ).load( "templates/vendor/update.html");
+									 $( "#content" ).load( "templates/perm-user/update.html");
 								 });
 								 $("#delete").click(function(){
-									 $( "#content" ).load( "templates/vendor/delete.html");
+									 $( "#content" ).load( "templates/perm-user/delete.html");
 								 });
 						});
 	</script>
@@ -190,7 +190,7 @@
 
 	<!-- load datatables js library -->
 		 <script type="text/javascript" src="assets/js/jquery.dataTables.min.js"></script>
-		 
+
 	<!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
 	<script src="assets/js/demo.js"></script>
 

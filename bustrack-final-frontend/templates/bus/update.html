@@ -1,0 +1,94 @@
+<!-- <div class="content" id="insert"> -->
+    <div class="container-fluid">
+            <form id="busupdate">
+              <div class="row">
+                  <div>
+                      <div class="form-group">
+                          <label>Bus ID</label>
+                          <input type="text" class="form-control" placeholder="Bus ID" name="busid" required="" onkeyup="callupdate()">
+                      </div>
+                  </div>
+                  <div>
+                      <div class="form-group">
+                          <label>Bus Number(Vehicle Number)</label>
+                          <input type="text" class="form-control" placeholder="Bus Number(Vehicle Number)" name="busno" id="busno" required="">
+                      </div>
+                  </div>
+                  <div>
+                      <div class="form-group">
+                          <label>current_trip_id ID</label>
+                          <input type="number" class="form-control" placeholder="Vendor ID" name="current_trip_id" id="current_trip_id" required="">
+                      </div>
+                  </div>
+                  <div>
+                      <div class="form-group">
+                          <label>Vendor ID</label>
+                          <input type="number" class="form-control" placeholder="Vendor ID" name="venid" id="venid" required="">
+                      </div>
+                  </div>
+              </div>
+
+              <button type="button" class="btn btn-info btn-fill pull-left" onclick="orgupd()">UPDATE</button>
+              <button type="reset" class="btn btn-info btn-fill pull-right">RESET</button>
+              <div class="clearfix"></div>
+            </form>
+    </div>
+
+<script>
+
+  function callupdate(){
+    var id = $("#busupdate").find('input[name="busid"]').val();
+    console.log("id:",id);
+     if (id) {
+       $.ajax({
+          type: "GET",
+          dataType: 'json',
+          url: "http://localhost:1323/bus/get/"+id,
+          success: function(data)
+          {
+              //window.alert(data)
+              console.log(data);
+              obj = data[0];
+              document.getElementById("busno").value = obj.vehicle_no;
+              document.getElementById("venid").value = obj.venid;
+              document.getElementById("current_trip_id").value = obj.current_trip_id;
+          }
+        });
+     }
+     else {
+          $("#busupdate").trigger('reset');
+        //  document.getElementById("orgname").reset();
+        //  document.getElementById("orgaddress").reset();
+        //  document.getElementById("orgemail").reset();
+        //  document.getElementById("orgcontact").reset();
+        //  document.getElementById("orgpwd").reset();
+     }
+  }
+
+
+function orgupd() {
+  busupdatedata={
+    busid: parseInt($("#busupdate").find('input[name="busid"]').val()),
+    vehicle_no:$("#busupdate").find('input[name="busno"]').val(),
+    venid:parseInt($("#busupdate").find('input[name="venid"]').val()),
+  };
+  datatosend = JSON.stringify(busupdatedata)
+  console.log(datatosend);
+  $.ajax({
+     type: 'PUT',
+     url: "http://localhost:1323/bus/update",
+     data: datatosend,
+     contentType: "application/json",
+     success: function(data)
+     {
+         window.alert(data); // show response from the php script.
+     },
+     error: function (xhr, textStatus, errorThrown) {
+                    console.log('Error in Operation');
+                    console.log("textStatus:",textStatus);
+    }
+   });
+}
+
+
+</script>

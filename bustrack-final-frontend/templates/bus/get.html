@@ -1,0 +1,145 @@
+<!-- <div class="content" id="insert"> -->
+    <div class="container-fluid">
+              <div class="row">
+                  <div class="col-md-3">
+                      <div class="form-group">
+                          <label>Get All Bus Details</label><br/>
+                          <button  type="button" class="btn btn-info btn-fill pull-left" onclick="getall()">Get All Bus Details</button>
+                      </div>
+                  </div>
+                  <!-- <div class="clearfix"></div> -->
+                  <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Get The Bus By id</label>
+                        <input type="number" class="form-control" placeholder="Vendor ID" required="" name="busid">
+                        <button  type="button" class="btn btn-info btn-fill pull-left" onclick="getid()">Get Bus</button>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Get The Buses By ven_id</label>
+                        <input type="number" class="form-control" placeholder="Vendor ID" required="" name="ven_id">
+                        <button  type="button" class="btn btn-info btn-fill pull-left" onclick="getbothid()">Get Bus</button>
+                    </div>
+                  </div>
+              </div>
+              <br>
+              <div class="clearfix"></div>
+
+              <div class="col-md-12">
+                  <!-- <div class="card"> -->
+                      <!-- <div class="header">
+                          <h4 class="title">Striped Table with Hover</h4>
+                          <p class="category">Here is a subtitle for this table</p>
+                      </div> -->
+                      <div class="content table-responsive table-full-width" id="showtabledata">
+                          <!-- <table id="example" class="table table-hover table-bordered table-condensed table-striped" >
+                              <thead>
+                                <tr>
+                                    <th>Org ID</th>
+                                    <th>Email</th>
+                                    <th>Name</th>
+                                    <th>Address</th>
+                                    <th>Password</th>
+                                    <th>Contact</th>
+                                </tr>
+                            </thead>
+                          </table> -->
+                      </div>
+                  <!-- </div> -->
+              </div>
+
+              <!-- <button type="submit" class="btn btn-info btn-fill pull-left">UPDATE</button>
+              <button type="reset" class="btn btn-info btn-fill pull-right">RESET</button> -->
+              <div class="clearfix"></div>
+    </div>
+
+
+<script type="text/javascript">
+
+    function getall(){
+      var id = -1;
+      getdata(id)
+    }
+
+    function getid(){
+      var id = $('input[name="busid"]').val();
+      getdata(id)
+    }
+
+    function getbothid(){
+      var venid = $('input[name="ven_id"]').val();
+      getbothdata(venid)
+    }
+
+    function getdata(id){
+      $.ajax({
+        url: "http://localhost:1323/bus/get/"+id,
+        type: 'GET',
+        dataType: 'json',
+        success: function (products) {
+          OrganizationListSuccess(products);
+        },
+        error: function (xhr, textStatus, errorThrown) {
+               console.log('Error in Operation');
+           }
+      });
+    }
+
+    function getbothdata(venid){
+      var vals={'venid':venid};
+      console.log("vals2:",vals);
+      $.ajax({
+        url: "http://localhost:1323/bus/get?"+$.param(vals),
+        type: 'GET',
+        dataType: 'json',
+        success: function (products) {
+          OrganizationListSuccess(products);
+        },
+        error: function (xhr, textStatus, errorThrown) {
+               console.log('Error in Operation');
+           }
+      });
+    }
+
+    function OrganizationListSuccess(products) {
+      resetastype();
+      $('#example').DataTable( {
+              data: products,
+              columns: [
+                  { "data": "busid" },
+                  { "data": "venid" },
+                  { "data": "current_trip_id" },
+                  { "data": "vehicle_no" }
+              ],
+              "bFilter": true,
+              "bJQueryUI": true,
+              "sSearch": "Search"
+          } );
+          table.columns().every( function () {
+          var that = this;
+
+          $( 'input', this.footer() ).on( 'keyup change', function () {
+              if ( that.search() !== this.value ) {
+                  that
+                      .search( this.value )
+                      .draw();
+              }
+          } );
+          } );
+    }
+
+    function resetastype(){
+        $('#showtabledata').html("<table id=\"example\" class=\"table table-bordered table-striped table-responsive\" >"+
+         "<thead>"+
+          "<tr>"+
+             "<th>Bus_ID</th>"+
+             "<th>Ven_ID</th>"+
+             "<th>Current_trip_id</th>"+
+             "<th>Vehicle_no</th>"+
+          "</tr>"+
+       "</thead>"+
+    "</table>");
+    }
+
+</script>
