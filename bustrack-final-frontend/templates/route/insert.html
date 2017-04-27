@@ -24,7 +24,7 @@
                   <div>
                       <div class="form-group">
                           <label>Coords</label>
-                          <textarea rows="2" class="form-control" placeholder="coords format like 'office'=>'079-27473392' 'mobile'=>'9601751101'" name="coords" required=""></textarea>
+                          <input type="text" class="form-control" placeholder="coords format like kml file path" name="coords" required="">
                       </div>
                   </div>
               </div>
@@ -46,7 +46,7 @@ console.log("CheckForm:",check);
     orgid:parseInt($("#routeinsert").find('input[name="orgid"]').val()),
     source:$("#routeinsert").find('input[name="source"]').val(),
     destination:$("#routeinsert").find('input[name="destination"]').val(),
-    coords:$("#routeinsert").find('textarea[name="coords"]').val(),
+    coords:$("#routeinsert").find('input[name="coords"]').val(),
   };
 
   datatosend = JSON.stringify(routeinsdata)
@@ -76,7 +76,7 @@ function checkform(){
      orgid=$("#routeinsert").find('input[name="orgid"]').val();
      source=$("#routeinsert").find('input[name="source"]').val();
      destination=$("#routeinsert").find('input[name="destination"]').val();
-     coords=$("#routeinsert").find('textarea[name="coords"]').val();
+     coords=$("#routeinsert").find('input[name="coords"]').val();
      hasError = false;
 
     // Validating Name Field.
@@ -96,12 +96,12 @@ function checkform(){
       alert("Please enter your Destination Address.");
       return hasError;
     }
-    // Validating contact Field.
-    // if (coords.length == 0) {
-    //   // $("#orgcontact").after('<span class="error">Please enter your Contact.</span>');
-    //   alert("Please enter your coordinates.");
-    //   return hasError;
-    // }
+    //Validating contact Field.
+    if (coords.length == 0) {
+      // $("#orgcontact").after('<span class="error">Please enter your Contact.</span>');
+      alert("Please enter your coordinates(kml file).");
+      return hasError;
+    }
     return !hasError;
 }
 

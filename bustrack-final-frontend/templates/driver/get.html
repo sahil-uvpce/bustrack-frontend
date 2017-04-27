@@ -11,15 +11,15 @@
                   <div class="col-md-3">
                     <div class="form-group">
                         <label>Get The Driver By id</label>
-                        <input type="number" class="form-control" placeholder="Vendor ID" required="" name="drid">
+                        <input type="number" class="form-control" placeholder="Vendor ID" required="" name="drid" id="drid">
                         <button  type="button" class="btn btn-info btn-fill pull-left" onclick="getid()">Get Driver</button>
                     </div>
                   </div>
                   <div class="col-md-4">
                     <div class="form-group">
                         <label>Get The Driver By dr_id and ven_id</label>
-                        <input type="number" class="form-control" placeholder="Driver ID" required="" name="dr_id">
-                        <input type="number" class="form-control" placeholder="Vendor ID" required="" name="ven_id">
+                        <input type="number" class="form-control" placeholder="Driver ID" required="" name="dr_id" id="dr_id">
+                        <input type="number" class="form-control" placeholder="Vendor ID" required="" name="ven_id" id="ven_id">
                         <button  type="button" class="btn btn-info btn-fill pull-left" onclick="getbothid()">Get Driver</button>
                     </div>
                   </div>
@@ -66,12 +66,15 @@
     function getid(){
       var id = $('input[name="drid"]').val();
       getdata(id)
+      document.getElementById("drid").value = '';
     }
 
     function getbothid(){
       var drid = $('input[name="dr_id"]').val();
       var venid = $('input[name="ven_id"]').val();
       getbothdata(drid,venid)
+      document.getElementById("dr_id").value = '';
+      document.getElementById("ven_id").value = '';
     }
 
     function getdata(id){

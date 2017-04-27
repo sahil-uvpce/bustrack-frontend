@@ -27,10 +27,10 @@
                       </div>
                   </div>
                   <div>
-                      <div class="form-group">
-                          <label>Coords</label>
-                          <textarea rows="2" class="form-control" placeholder="coords format like 'office'=>'079-27473392' 'mobile'=>'9601751101'" name="coords" id="coords" required=""></textarea>
-                      </div>
+                    <div class="form-group">
+                        <label>Coords</label>
+                        <input type="text" class="form-control" placeholder="coords format like kml file path" name="coords" required="">
+                    </div>
                   </div>
               </div>
 
@@ -79,7 +79,7 @@ function orgupd() {
     orgid:parseInt($("#routeupdate").find('input[name="orgid"]').val()),
     source:$("#routeupdate").find('input[name="source"]').val(),
     destination:$("#routeupdate").find('input[name="destination"]').val(),
-    coords:$("#routeupdate").find('textarea[name="coords"]').val(),
+    coords:$("#routeupdate").find('input[name="coords"]').val(),
   };
   datatosend = JSON.stringify(routeupdatedata)
   console.log(datatosend);
