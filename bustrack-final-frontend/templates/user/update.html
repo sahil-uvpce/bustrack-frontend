@@ -1,0 +1,73 @@
+<!-- <div class="content" id="insert"> -->
+    <div class="container-fluid">
+            <form id="drupdate">
+              <div class="row">
+                  <div>
+                      <div class="form-group">
+                          <label for="exampleInputEmail1">Email address</label>
+                          <input type="email" class="form-control" placeholder="Email" name="email" id="email" required="">
+                      </div>
+                  </div>
+                  <div>
+                      <div class="form-group">
+                          <label>Organization ID</label>
+                          <input type="number" class="form-control" placeholder="Organization ID" name="orgid" id="orgid" required="">
+                      </div>
+                  </div>
+              </div>
+
+              <button type="button" class="btn btn-info btn-fill pull-left" onclick="orgupd()">UPDATE</button>
+              <button type="reset" class="btn btn-info btn-fill pull-right">RESET</button>
+              <div class="clearfix"></div>
+            </form>
+    </div>
+
+<script>
+
+function orgupd() {
+  orgupdatedata={
+    email:$("#drupdate").find('input[name="email"]').val(),
+    orgid:parseInt($("#drupdate").find('input[name="orgid"]').val()),
+  };
+  datatosend = JSON.stringify(orgupdatedata)
+  console.log(datatosend);
+  $.ajax({
+     type: 'PUT',
+     url: "http://localhost:1323/permuser/update",
+     data: datatosend,
+     contentType: "application/json",
+     success: function(data)
+     {
+         window.alert(data); // show response from the php script.
+     },
+     error: function (xhr, textStatus, errorThrown) {
+                    console.log('Error in Operation');
+                    console.log("textStatus:",textStatus);
+    }
+   });
+}
+
+  // $(document).ready(function(){
+  //     $("#updatedata").click(function(){
+  //       orgupdatedata={
+  //         'orgid':$("#orgupdate").find('input[name="orgid"]').val(),
+  //         'name':$("#orgupdate").find('input[name="orgname"]').val(),
+  //         'email':$("#orgupdate").find('input[name="orgemail"]').val(),
+  //         'address':$("#orgupdate").find('textarea[name="orgaddress"]').val(),
+  //         'contact':$("#orgupdate").find('textarea[name="orgcontact"]').val(),
+  //         'password':$("#orgupdate").find('input[name="orgpwd"]').val(),
+  //       };
+  //   console.log(orgupdatedata);
+  //       $.ajax({
+  //          type: "PUT",
+  //          url: "http://localhost:1323/organization/update",
+  //          data: orgupdatedata, // serializes the form's elements.
+  //          success: function(data)
+  //          {
+  //              window.alert(data); // show response from the php script.
+  //          }
+  //        });
+  //     });
+  // });
+
+</script>
