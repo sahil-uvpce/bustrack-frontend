@@ -3,9 +3,9 @@
               <div class="row">
                   <div class="col-md-4">
                     <div class="form-group">
-                        <label>Delete The Permitted User By email</label>
-                        <input type="text" class="form-control" placeholder="Email ID" name="email" required="">
-                        <button type="button" class="btn btn-info btn-fill pull-left" onclick="getid()">Delete Perm-user</button>
+                        <label>Delete The User By id</label>
+                        <input type="text" class="form-control" placeholder="User ID" name="userid" id="userid" required="">
+                        <button type="button" class="btn btn-info btn-fill pull-left" onclick="getid()">Delete User</button>
                     </div>
                   </div>
               </div>
@@ -18,13 +18,14 @@
   <script type="text/javascript">
 
   function getid(){
-  var email = $('input[name="email"]').val();
-  delorg(email)
+  var userid = $('input[name="userid"]').val();
+  delorg(userid)
+  document.getElementById("userid").value = '';
   }
-  function delorg(email) {
+  function delorg(userid) {
     $.ajax({
        type: "DELETE",
-       url: "http://localhost:1323/permuser/delete/"+email,
+       url: "http://localhost:1323/user/delete/"+userid,
        success: function(data)
        {
            window.alert(data); // show response from the php script.

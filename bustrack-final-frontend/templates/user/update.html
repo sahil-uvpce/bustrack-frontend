@@ -1,11 +1,23 @@
 <!-- <div class="content" id="insert"> -->
     <div class="container-fluid">
-            <form id="drupdate">
+            <form id="uupdate">
               <div class="row">
+                <div>
+                    <div class="form-group">
+                        <label>User ID</label>
+                        <input type="number" class="form-control" placeholder="User ID" name="userid" id="userid" required="" onkeyup="callupdate()">
+                    </div>
+                </div>
                   <div>
                       <div class="form-group">
                           <label for="exampleInputEmail1">Email address</label>
                           <input type="email" class="form-control" placeholder="Email" name="email" id="email" required="">
+                      </div>
+                  </div>
+                  <div>
+                      <div class="form-group">
+                          <label for="password">Password</label>
+                          <input type="password" class="form-control" placeholder="Password" name="password" id="password" required="">
                       </div>
                   </div>
                   <div>
@@ -24,27 +36,59 @@
 
 <script>
 
+function callupdate(){
+  var id = $("#uupdate").find('input[name="userid"]').val();
+  console.log("id:",id);
+   if (id) {
+     $.ajax({
+        type: "GET",
+        dataType: 'json',
+        url: "http://localhost:1323/user/get/"+id,
+        success: function(data)
+        {
+            //window.alert(data)
+            console.log(data);
+            obj = data[0];
+            document.getElementById("email").value = obj.email;
+            document.getElementById("password").value = obj.password;
+            document.getElementById("orgid").value = obj.orgid;
+        }
+      });
+   }
+   else {
+        $("#uupdate").trigger('reset');
+      //  document.getElementById("orgname").reset();
+      //  document.getElementById("orgaddress").reset();
+      //  document.getElementById("orgemail").reset();
+      //  document.getElementById("orgcontact").reset();
+      //  document.getElementById("orgpwd").reset();
+   }
+}
+
+
 function orgupd() {
-  orgupdatedata={
-    email:$("#drupdate").find('input[name="email"]').val(),
-    orgid:parseInt($("#drupdate").find('input[name="orgid"]').val()),
-  };
-  datatosend = JSON.stringify(orgupdatedata)
-  console.log(datatosend);
-  $.ajax({
-     type: 'PUT',
-     url: "http://localhost:1323/permuser/update",
-     data: datatosend,
-     contentType: "application/json",
-     success: function(data)
-     {
-         window.alert(data); // show response from the php script.
-     },
-     error: function (xhr, textStatus, errorThrown) {
-                    console.log('Error in Operation');
-                    console.log("textStatus:",textStatus);
-    }
-   });
+orgupdatedata={
+  userid: parseInt($("#uupdate").find('input[name="userid"]').val()),
+  email:$("#uupdate").find('input[name="email"]').val(),
+  password:$("#uupdate").find('input[name="password"]').val(),
+  orgid:parseInt($("#uupdate").find('input[name="orgid"]').val()),
+};
+datatosend = JSON.stringify(orgupdatedata)
+console.log(datatosend);
+$.ajax({
+   type: 'PUT',
+   url: "http://localhost:1323/user/update",
+   data: datatosend,
+   contentType: "application/json",
+   success: function(data)
+   {
+       window.alert(data); // show response from the php script.
+   },
+   error: function (xhr, textStatus, errorThrown) {
+                  console.log('Error in Operation');
+                  console.log("textStatus:",textStatus);
+  }
+ });
 }
 
   // $(document).ready(function(){

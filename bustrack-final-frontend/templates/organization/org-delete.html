@@ -4,7 +4,7 @@
                   <div class="col-md-3">
                     <div class="form-group">
                         <label>Delete The Organization By id</label>
-                        <input type="number" class="form-control" placeholder="Organization ID" name="orgid" required="">
+                        <input type="number" class="form-control" placeholder="Organization ID" name="orgid" id="orgid" required="">
                         <button type="button" class="btn btn-info btn-fill pull-left" onclick="getid()">Delete Organization</button>
                     </div>
                   </div>
@@ -20,6 +20,7 @@
   function getid(){
   var id = $('input[name="orgid"]').val();
   delorg(id)
+  document.getElementById("orgid").value = '';
   }
   function delorg(id) {
     $.ajax({
