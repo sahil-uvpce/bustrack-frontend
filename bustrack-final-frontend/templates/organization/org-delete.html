@@ -17,6 +17,8 @@
   <!-- </div> -->
   <script type="text/javascript">
 
+var ip="54.68.116.37"
+
   function getid(){
   var id = $('input[name="orgid"]').val();
   delorg(id)
@@ -25,7 +27,7 @@
   function delorg(id) {
     $.ajax({
        type: "DELETE",
-       url: "http://localhost:1323/organization/delete/"+id,
+       url: "http://"+ip+":1323/organization/delete/"+id,
        success: function(data)
        {
            window.alert(data); // show response from the php script.

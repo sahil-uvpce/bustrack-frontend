@@ -44,6 +44,8 @@
   <!-- onclick="insorg()" -->
 <script type="text/javascript">
 
+var ip="54.68.116.37"
+
 function insorg(){
  check=checkform();
 console.log("CheckForm:",check);
@@ -61,7 +63,7 @@ console.log("CheckForm:",check);
 
   $.ajax({
      type: "POST",
-     url: "http://localhost:1323/organization/add",
+     url: "http://"+ip+":1323/organization/add",
      data: datatosend,
      contentType: "application/json", // serializes the form's elements.
      success: function(data)

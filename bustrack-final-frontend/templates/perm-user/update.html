@@ -24,6 +24,8 @@
 
 <script>
 
+var ip="54.68.116.37"
+
 function orgupd() {
   orgupdatedata={
     email:$("#drupdate").find('input[name="email"]').val(),
@@ -33,7 +35,7 @@ function orgupd() {
   console.log(datatosend);
   $.ajax({
      type: 'PUT',
-     url: "http://localhost:1323/permuser/update",
+     url: "http://"+ip+":1323/permuser/update",
      data: datatosend,
      contentType: "application/json",
      success: function(data)

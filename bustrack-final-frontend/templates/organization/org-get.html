@@ -49,6 +49,8 @@
 
 <script type="text/javascript">
 
+var ip="54.68.116.37"
+
     function getall(){
       var id = -1;
       getdata(id)
@@ -62,7 +64,7 @@
 
     function getdata(id){
       $.ajax({
-        url: "http://localhost:1323/organization/get/"+id,
+        url: "http://"+ip+":1323/organization/get/"+id,
         type: 'GET',
         dataType: 'json',
         success: function (products) {

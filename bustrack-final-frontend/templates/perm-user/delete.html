@@ -17,6 +17,8 @@
   <!-- </div> -->
   <script type="text/javascript">
 
+var ip="54.68.116.37"
+
   function getid(){
   var email = $('input[name="email"]').val();
   delorg(email)
@@ -25,7 +27,7 @@
   function delorg(email) {
     $.ajax({
        type: "DELETE",
-       url: "http://localhost:1323/permuser/delete/"+email,
+       url: "http://"+ip+":1323/permuser/delete/"+email,
        success: function(data)
        {
            window.alert(data); // show response from the php script.

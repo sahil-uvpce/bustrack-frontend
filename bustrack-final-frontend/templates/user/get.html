@@ -51,6 +51,8 @@
 
 <script type="text/javascript">
 
+var ip="54.68.116.37"
+
     function getid(){
       var id = -1;
       getdata(id)
@@ -67,7 +69,7 @@
 
     function getdata(id){
       $.ajax({
-        url: "http://localhost:1323/user/get/"+id,
+        url: "http://"+ip+":1323/user/get/"+id,
         type: 'GET',
         dataType: 'json',
         success: function (products) {
@@ -83,7 +85,7 @@
       var vals={'userid':userid,'orgid':orgid};
       console.log("vals2:",vals);
       $.ajax({
-        url: "http://localhost:1323/user/get?"+$.param(vals),
+        url: "http://"+ip+":1323/user/get?"+$.param(vals),
         type: 'GET',
         dataType: 'json',
         success: function (products) {

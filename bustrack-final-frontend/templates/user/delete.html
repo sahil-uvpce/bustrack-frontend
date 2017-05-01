@@ -17,6 +17,8 @@
   <!-- </div> -->
   <script type="text/javascript">
 
+var ip="54.68.116.37"
+
   function getid(){
   var userid = $('input[name="userid"]').val();
   delorg(userid)
@@ -25,7 +27,7 @@
   function delorg(userid) {
     $.ajax({
        type: "DELETE",
-       url: "http://localhost:1323/user/delete/"+userid,
+       url: "http://"+ip+":1323/user/delete/"+userid,
        success: function(data)
        {
            window.alert(data); // show response from the php script.
