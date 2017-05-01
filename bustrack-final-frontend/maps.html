@@ -144,11 +144,18 @@
 															<input type="number" class="form-control" placeholder="Organization ID" name="orgid" id="orgid" required="">
 													</div>
 											</div>
+											<div class="col-md-3">
+													<div class="form-group">
+															<label>Bus ID</label>
+															<input type="number" class="form-control" placeholder="Bus ID" name="busid" id="busid" required="">
+													</div>
+											</div>
 									</div>
 									<button type="button" class="btn btn-info pull-left" onclick="getbothid()">load map from kml</button>&nbsp;&nbsp;
 									<!-- <button type="button" class="btn btn-info pull-left" onclick="initialize()">load map from kml</button>&nbsp;&nbsp; -->
 									<button type="button" class="btn btn-info pull-center" onclick="addmarker()">add marker</button>&nbsp;&nbsp;
 									<button type="button" class="btn btn-info " onclick="removemarker()"> remove marker</button>
+									<button type="button" class="btn btn-info " onclick="getbusid()">Get Trip</button>
 									<div class="clearfix"></div>
 				</div>
 
@@ -165,11 +172,14 @@
 <script async defer src="assets/geoxml3-master/ProjectedOverlay.js"></script>
 
     <script>
-
-				var ip="54.68.116.37"
+//http://localhost:1323/trip/stream/
+				var ip="localhost"
 
         var markerarray = []
-        var myLatLng = {lat: 23.528, lng: 72.45857};
+        var myLatLng = {lat: 23.52858, lng: 72.45888};
+				var myLatLng1 = {lat: 23.52917, lng: 72.45852};
+				var myLatLng2 = {lat: 23.52949, lng: 72.45777};
+				var myLatLng3 = {lat: 23.52929, lng: 72.45553};
         var map=""
 
 				function getbothid(){
@@ -178,6 +188,12 @@
 		      getbothdata(routeid,orgid)
 		      document.getElementById("routeid").value = '';
 					document.getElementById("orgid").value = '';
+		    }
+
+				function getbusid(){
+		      var busid = $('input[name="busid"]').val();
+		      gettrip(busid)
+		      // document.getElementById("busid").value = '';
 		    }
 
 				function getbothdata(routeid,orgid){
@@ -196,7 +212,35 @@
 									 console.log('Error in Operation');
 							 }
 					});
+				}
 
+				function gettrip(busid){
+					$.ajax({
+						url: "http://"+ip+":1323/bus/get/"+busid,
+						type: 'GET',
+						dataType: 'json',
+						success: function (data) {
+									console.log(data[0].current_trip_id);
+									var tripid = data[0].current_trip_id;
+									getcoords(tripid)
+						},
+						error: function (xhr, textStatus, errorThrown) {
+									 console.log('Error in Operation');
+							 }
+					});
+				}
+
+				function getcoords(tripid){
+					$.ajax({
+						url: "http://"+ip+":1323/trip/stream/"+tripid,
+						type: 'GET',
+						success: function (data) {
+									console.log("coords:",data);
+						},
+						error: function (xhr, textStatus, errorThrown) {
+									 console.log('Error in Operation');
+							 }
+					});
 				}
 
         function initialize(file) {
@@ -209,13 +253,32 @@
             var parser = new geoXML3.parser({map: map, processStyles: true});
             parser.parse(file);
         }
+
         function addmarker(){
           var marker = new google.maps.Marker({
           position: myLatLng,
           map: map,
           title: 'Hello World!'
         });
+				var marker1 = new google.maps.Marker({
+				position: myLatLng1,
+				map: map,
+				title: 'Hello World1!'
+				});
+				var marker2 = new google.maps.Marker({
+				position: myLatLng2,
+				map: map,
+				title: 'Hello World2!'
+				});
+				var marker3 = new google.maps.Marker({
+				position: myLatLng3,
+				map: map,
+				title: 'Hello World3!'
+				});
         markerarray.push(marker)
+				markerarray.push(marker1)
+				markerarray.push(marker2)
+				markerarray.push(marker3)
         }
 
         function removemarker(){
