@@ -66,7 +66,7 @@
 									</a>
 							</li>
 							<li>
-									<a href="icons.html">
+									<a href="bus.html">
 											<i class="pe-7s-car"></i>
 											<p>Bus</p>
 									</a>
@@ -130,9 +130,29 @@
             </div>
         </nav>
 
-				<button onclick="initialize()">load map from kml</button>
-				<button onclick="addmarker()">add marker</button>
-				<button onclick="removemarker()"> remove marker</button>
+				<div class="container-fluid">
+									<div class="row">
+											<div class="col-md-3">
+													<div class="form-group">
+															<label>Route ID</label>
+															<input type="number" class="form-control" placeholder="Route ID" name="routeid" id="routeid" required="">
+													</div>
+											</div>
+											<div class="col-md-3">
+													<div class="form-group">
+															<label>Organization ID</label>
+															<input type="number" class="form-control" placeholder="Organization ID" name="orgid" id="orgid" required="">
+													</div>
+											</div>
+									</div>
+									<button type="button" class="btn btn-info pull-left" onclick="getbothid()">load map from kml</button>&nbsp;&nbsp;
+									<!-- <button type="button" class="btn btn-info pull-left" onclick="initialize()">load map from kml</button>&nbsp;&nbsp; -->
+									<button type="button" class="btn btn-info pull-center" onclick="addmarker()">add marker</button>&nbsp;&nbsp;
+									<button type="button" class="btn btn-info " onclick="removemarker()"> remove marker</button>
+									<div class="clearfix"></div>
+				</div>
+
+
 				<div id="map" style="width:1050px; height:500px"></div>
     </div>
 </div>
@@ -148,7 +168,35 @@
         var markerarray = []
         var myLatLng = {lat: 23.528, lng: 72.45857};
         var map=""
-        function initialize() {
+
+				function getbothid(){
+		      var routeid = $('input[name="routeid"]').val();
+					var orgid = $('input[name="orgid"]').val();
+		      getbothdata(routeid,orgid)
+		      document.getElementById("routeid").value = '';
+					document.getElementById("orgid").value = '';
+		    }
+
+				function getbothdata(routeid,orgid){
+					var vals={'routeid':routeid,'orgid':orgid};
+					console.log("vals2:",vals);
+					$.ajax({
+						url: "http://localhost:1323/route/get?"+$.param(vals),
+						type: 'GET',
+						dataType: 'json',
+						success: function (data) {
+									console.log(data[0].file);
+									var file = data[0].file;
+									initialize(file)
+						},
+						error: function (xhr, textStatus, errorThrown) {
+									 console.log('Error in Operation');
+							 }
+					});
+
+				}
+
+        function initialize(file) {
             console.log("map is initialize");
             var options = {
                 mapTypeId: google.maps.MapTypeId.ROADMAP
@@ -156,7 +204,7 @@
 
             map = new google.maps.Map(document.getElementById("map"), options);
             var parser = new geoXML3.parser({map: map, processStyles: true});
-            parser.parse("Map/Map2.kml");
+            parser.parse(file);
         }
         function addmarker(){
           var marker = new google.maps.Marker({
