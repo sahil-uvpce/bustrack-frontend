@@ -173,13 +173,13 @@
 
     <script>
 //http://localhost:1323/trip/stream/
-				var ip="54.68.116.37"
+				var ip="localhost"
 
         var markerarray = []
-        var myLatLng = {lat: 23.52858, lng: 72.45888};
-				var myLatLng1 = {lat: 23.52917, lng: 72.45852};
-				var myLatLng2 = {lat: 23.52949, lng: 72.45777};
-				var myLatLng3 = {lat: 23.52929, lng: 72.45553};
+         var myLatLng = {lat: 23.52858, lng: 72.45888};
+				// var myLatLng1 = {lat: 23.52917, lng: 72.45852};
+				// var myLatLng2 = {lat: 23.52949, lng: 72.45777};
+				// var myLatLng3 = {lat: 23.52929, lng: 72.45553};
         var map=""
 
 				function getbothid(){
@@ -231,16 +231,44 @@
 				}
 
 				function getcoords(tripid){
-					$.ajax({
-						url: "http://"+ip+":1323/trip/stream/"+tripid,
-						type: 'GET',
-						success: function (data) {
-									console.log("coords:",data);
-						},
-						error: function (xhr, textStatus, errorThrown) {
-									 console.log('Error in Operation');
-							 }
-					});
+					var wsstring = "ws://localhost:1323/trip/stream/"+tripid;
+					ws = new WebSocket(wsstring);
+
+					ws.onopen = function() {
+      					console.log('Connected')
+    				}
+
+    				ws.onmessage = function(coords) {
+      					console.log(coords.data);
+
+      					//[message trip34 lat:lng=>23.0126818:72.5148905]
+
+      					//var string =
+								var string = coords.data;
+								var re = string.split("trip");
+								var st = re[1];
+								if(st.search("end")>0)
+								{
+									  console.log("Close the Web Socket.");
+										ws.close();
+								}
+								else
+								{
+									var res = st.split("=>");
+									var a=res[0];
+									var str1=res[1];
+									var str2 = str1.split(":");
+									var lat=str2[0];
+									var b=str2[1];
+									var str3 = b.split("]");
+									var lng = str3[0];
+								  console.log("lat:",lat);
+									console.log("lng:",lng);
+
+									addmarker(lat,lng)
+								}
+  				  }
+
 				}
 
         function initialize(file) {
@@ -254,32 +282,26 @@
             parser.parse(file);
         }
 
-        function addmarker(){
-          var marker = new google.maps.Marker({
-          position: myLatLng,
-          map: map,
-          title: 'Hello World!'
-        });
-				var marker1 = new google.maps.Marker({
-				position: myLatLng1,
-				map: map,
-				title: 'Hello World1!'
-				});
-				var marker2 = new google.maps.Marker({
-				position: myLatLng2,
-				map: map,
-				title: 'Hello World2!'
-				});
-				var marker3 = new google.maps.Marker({
-				position: myLatLng3,
-				map: map,
-				title: 'Hello World3!'
-				});
-        markerarray.push(marker)
-				markerarray.push(marker1)
-				markerarray.push(marker2)
-				markerarray.push(marker3)
-        }
+        // function addmarker(lattitude,longitude){
+				// 	console.log("lat in string",lattitude);
+				// 	var myLatLng = {lat: lattitude'', lng: longitude};
+				// 	console.log("myLatLng: ",myLatLng);
+        //   var marker = new google.maps.Marker({
+        //   	position: myLatLng,
+        //   	map: map,
+        //   	title: 'Hello World!'
+        // 	});
+        // 	markerarray.push(marker)
+        // }
+
+				function addmarker(){
+					var marker = new google.maps.Marker({
+						position: myLatLng,
+						map: map,
+						title: 'Hello World!'
+					});
+					markerarray.push(marker)
+				}
 
         function removemarker(){
           for(i=0; i<markerarray.length; i++){
