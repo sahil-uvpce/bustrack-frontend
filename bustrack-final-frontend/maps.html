@@ -176,7 +176,7 @@
 				var ip="localhost"
 
         var markerarray = []
-         var myLatLng = {lat: 23.52858, lng: 72.45888};
+        // var myLatLng = {lat: 23.52858, lng: 72.45888};
 				// var myLatLng1 = {lat: 23.52917, lng: 72.45852};
 				// var myLatLng2 = {lat: 23.52949, lng: 72.45777};
 				// var myLatLng3 = {lat: 23.52929, lng: 72.45553};
@@ -282,26 +282,19 @@
             parser.parse(file);
         }
 
-        // function addmarker(lattitude,longitude){
-				// 	console.log("lat in string",lattitude);
-				// 	var myLatLng = {lat: lattitude'', lng: longitude};
-				// 	console.log("myLatLng: ",myLatLng);
-        //   var marker = new google.maps.Marker({
-        //   	position: myLatLng,
-        //   	map: map,
-        //   	title: 'Hello World!'
-        // 	});
-        // 	markerarray.push(marker)
-        // }
-
-				function addmarker(){
-					var marker = new google.maps.Marker({
-						position: myLatLng,
-						map: map,
-						title: 'Hello World!'
-					});
-					markerarray.push(marker)
-				}
+        function addmarker(lattitude,longitude){
+					console.log("lat in string",lattitude);
+				  lt = lattitude + '';
+					ln = longitude + '';
+					var myLatLng = {lat: lt, lng: ln};
+					console.log("myLatLng",myLatLng);
+          var marker = new google.maps.Marker({
+          position: myLatLng,
+          map: map,
+          title: 'Hello World!'
+        });
+        markerarray.push(marker)
+        }
 
         function removemarker(){
           for(i=0; i<markerarray.length; i++){
