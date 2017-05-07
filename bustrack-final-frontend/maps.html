@@ -292,17 +292,21 @@
 					myLatLng.lng = parseFloat(longitude);
 					console.log("myLatLng",myLatLng);
           removemarker();
+          console.log("remove marker");
           var marker = new google.maps.Marker({
           position: myLatLng,
           map: map,
           title: 'Hello World!'
         });
+          console.log("marker", marker);
         markerarray.push(marker)
         }
 
         function removemarker(){
           for(i=0; i<markerarray.length; i++){
+          	console.log("remove marker", markerarray[i]);
             markerarray[i].setMap(null);
+
           }
         }
     </script>
