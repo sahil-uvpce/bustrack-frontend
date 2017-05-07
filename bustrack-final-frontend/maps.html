@@ -167,16 +167,13 @@
 
 </body>
 
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJUZlNkvC6ZzkF2MGCYCWZtghCY0GeLsM&v=3.exp"></script>
-<script async defer src="assets/geoxml3-master/polys/geoxml3.js"></script>
-<script async defer src="assets/geoxml3-master/ProjectedOverlay.js"></script>
 
     <script>
 //http://localhost:1323/trip/stream/
 				var ip="localhost"
 
         var markerarray = []
-        // var myLatLng = {lat: 23.52858, lng: 72.45888};
+         var myLatLng = {lat: 23.52858, lng: 72.45888};
 				// var myLatLng1 = {lat: 23.52917, lng: 72.45852};
 				// var myLatLng2 = {lat: 23.52949, lng: 72.45777};
 				// var myLatLng3 = {lat: 23.52929, lng: 72.45553};
@@ -206,10 +203,10 @@
 						success: function (data) {
 									console.log(data[0].file);
 									var file = data[0].file;
-									initialize(file)
+					 				initialize(data[0].file);
 						},
 						error: function (xhr, textStatus, errorThrown) {
-									 console.log('Error in Operation');
+										 console.log('Error in Operation');
 							 }
 					});
 				}
@@ -220,9 +217,10 @@
 						type: 'GET',
 						dataType: 'json',
 						success: function (data) {
+									console.log(data);
 									console.log(data[0].current_trip_id);
 									var tripid = data[0].current_trip_id;
-									getcoords(tripid)
+									getcoords(tripid);
 						},
 						error: function (xhr, textStatus, errorThrown) {
 									 console.log('Error in Operation');
@@ -232,6 +230,7 @@
 
 				function getcoords(tripid){
 					var wsstring = "ws://localhost:1323/trip/stream/"+tripid;
+					var first_msg=true;
 					ws = new WebSocket(wsstring);
 
 					ws.onopen = function() {
@@ -244,7 +243,8 @@
       					//[message trip34 lat:lng=>23.0126818:72.5148905]
 
       					//var string =
-								var string = coords.data;
+      					if (!first_msg){
+      						var string = coords.data;
 								var re = string.split("trip");
 								var st = re[1];
 								if(st.search("end")>0)
@@ -266,10 +266,14 @@
 									console.log("lng:",lng);
 
 									addmarker(lat,lng)
+      					}
+      				} else {
+						first_msg=false;
+						}
 								}
   				  }
 
-				}
+				
 
         function initialize(file) {
             console.log("map is initialize");
@@ -284,10 +288,10 @@
 
         function addmarker(lattitude,longitude){
 					console.log("lat in string",lattitude);
-				  lt = lattitude + '';
-					ln = longitude + '';
-					var myLatLng = {lat: lt, lng: ln};
+					myLatLng.lat = parseFloat(lattitude);
+					myLatLng.lng = parseFloat(longitude);
 					console.log("myLatLng",myLatLng);
+          removemarker();
           var marker = new google.maps.Marker({
           position: myLatLng,
           map: map,
@@ -316,8 +320,9 @@
     <script src="assets/js/bootstrap-notify.js"></script>
 
     <!--  Google Maps Plugin    -->
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
-
+   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJUZlNkvC6ZzkF2MGCYCWZtghCY0GeLsM&v=3.exp"></script>
+	<script async defer src="assets/geoxml3-master/polys/geoxml3.js"></script>
+	<script async defer src="assets/geoxml3-master/ProjectedOverlay.js"></script>
     <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
 	<script src="assets/js/light-bootstrap-dashboard.js"></script>
 
